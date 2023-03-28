@@ -2,6 +2,7 @@
 
 namespace Mpietrucha\Minify;
 
+use SplFileInfo;
 use Mpietrucha\Support\Concerns\HasFactory;
 use Mpietrucha\Support\Concerns\HasInputFile;
 use Mpietrucha\Support\Types;
@@ -14,13 +15,17 @@ use Illuminate\Support\Stringable;
 class Minify
 {
     use HasFactory;
-    use HasInputFile;
+
+    use HasInputFile {
+        file as baseInputFile;
+    }
 
     protected ?MinifierInterface $minifier;
 
     protected const MINIFIERS = [
         Minifiers\Js::class,
-        Minifiers\Css::class
+        Minifiers\Css::class,
+        Minifiers\Svg::class
     ];
 
     public function __construct(protected ?string $contents = null, protected array $options = [])
@@ -28,6 +33,11 @@ class Minify
         Bootstrapper::handle();
 
         $this->minifier();
+    }
+
+    public static function file(SplFileInfo $file): ?self
+    {
+        return self::baseInputFile($file)?->lookup($file->getExtension());
     }
 
     public function __call(string $method, array $arguments): ?string

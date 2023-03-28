@@ -11,7 +11,7 @@ class Text implements MinifierInterface
     protected string $contents;
 
     protected const DEFAULT_OPTIONS = [
-        'doRemoveOmittedQuotes' => false
+        'doRemoveOmittedQuotes' => true
     ];
 
     public function bootstrap(?string $contents, array $options): self
@@ -43,7 +43,7 @@ class Text implements MinifierInterface
 
     protected function applyOptions(HtmlMin $handler): HtmlMin
     {
-        collect([...self::DEFAULT_OPTIONS, ...$this->options])->each(fn (bool $mode, string $method) => $handler->$method($mode));
+        collect([...self::DEFAULT_OPTIONS, ...$this->options])->each(fn (mixed $mode, string $method) => $handler->$method($mode));
 
         return $handler;
     }
