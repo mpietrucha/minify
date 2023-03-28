@@ -4,7 +4,7 @@ namespace Mpietrucha\Minify\Contracts;
 
 interface MinifierInterface
 {
-    public function bootstrap(?string $contents): self;
+    public function bootstrap(?string $contents, array $options): self;
 
     public function mimeTypes(): array;
 

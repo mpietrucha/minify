@@ -7,11 +7,16 @@ use Mpietrucha\Minify\Contracts\MinifierInterface;
 
 class Text implements MinifierInterface
 {
+    protected array $options;
     protected string $contents;
 
-    public function bootstrap(?string $contents): self
+    protected const DEFAULT_OPTIONS = [
+        'doRemoveOmittedQuotes' => false
+    ];
+
+    public function bootstrap(?string $contents, array $options): self
     {
-        $this->contents = $contents;
+        [$this->options, $this->contents] = [$options, $contents];
 
         return $this;
     }
@@ -28,11 +33,18 @@ class Text implements MinifierInterface
 
     public function minify(): string
     {
-        return with(new HtmlMin, fn (HtmlMin $handler) => $handler->minify($this->contents));
+        return with(new HtmlMin, $this->applyOptions(...))->minify($this->contents);
     }
 
     public function gzip(): string
     {
         return gzencode($this->minify());
+    }
+
+    protected function applyOptions(HtmlMin $handler): HtmlMin
+    {
+        collect([...self::DEFAULT_OPTIONS, ...$this->options])->each(fn (bool $mode, string $method) => $handler->$method($mode));
+
+        return $handler;
     }
 }

@@ -10,7 +10,7 @@ class Css implements MinifierInterface
 {
     protected Minify $handler;
 
-    public function bootstrap(?string $contents): self
+    public function bootstrap(?string $contents, array $options): self
     {
         if ($contents) {
             $this->handler = new Handler($contents);

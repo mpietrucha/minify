@@ -23,7 +23,7 @@ class Minify
         Minifiers\Css::class
     ];
 
-    public function __construct(protected ?string $contents = null)
+    public function __construct(protected ?string $contents = null, protected array $options = [])
     {
         Bootstrapper::handle();
 
@@ -43,7 +43,14 @@ class Minify
     {
         $this->contents = $contents;
 
-        $this->minifier?->bootstrap($contents);
+        $this->bootstrapped();
+
+        return $this;
+    }
+
+    public function options(array $options = []): self
+    {
+        $this->options = $options;
 
         return $this;
     }
@@ -63,7 +70,7 @@ class Minify
             return $this->minifier(new $minifier);
         }
 
-        $this->minifier = ($minifier ?? new Text)->bootstrap($this->contents);
+        $this->minifier = $this->bootstrapped($minifier);
 
         return $this;
     }
@@ -75,5 +82,10 @@ class Minify
             ->flatten()
             ->toStringable()
             ->first(fn (Stringable $search) => $search->is($lookup)) !== null;
+    }
+
+    protected function bootstrapped(?MinifierInterface $minifier): MinifierInterface
+    {
+        return ($minifier ?? new Text)->bootstrap($this->contents, $this->options);
     }
 }
