@@ -53,7 +53,7 @@ class Minify
     {
         $this->contents = $contents;
 
-        $this->bootstrapped();
+        $this->bootstrap();
 
         return $this;
     }
@@ -80,7 +80,7 @@ class Minify
             return $this->minifier(new $minifier);
         }
 
-        $this->minifier = $this->bootstrapped($minifier);
+        $this->bootstrap($minifier);
 
         return $this;
     }
@@ -94,8 +94,8 @@ class Minify
             ->first(fn (Stringable $search) => $search->is($lookup)) !== null;
     }
 
-    protected function bootstrapped(?MinifierInterface $minifier): MinifierInterface
+    protected function bootstrap(?MinifierInterface $minifier = null): void
     {
-        return ($minifier ?? new Text)->bootstrap($this->contents, $this->options);
+        $this->minifier = ($minifier ?? new Text)->bootstrap($this->contents, $this->options);
     }
 }

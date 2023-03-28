@@ -7,9 +7,9 @@ if (! function_exists('minify')) {
         $handler = new Minify;
 
         if (! $contents) {
-            return $handler
+            return $handler;
         }
 
-        return $handler->content($contents)->options($options)->minify();
+        return $handler->contents($contents)->options($options)->minify();
     }
 }

@@ -8,10 +8,10 @@ use Mpietrucha\Minify\Contracts\MinifierInterface;
 class Text implements MinifierInterface
 {
     protected array $options;
-    protected string $contents;
+    protected ?string $contents;
 
     protected const DEFAULT_OPTIONS = [
-        'doRemoveOmittedQuotes' => true
+        'doRemoveOmittedQuotes' => false
     ];
 
     public function bootstrap(?string $contents, array $options): self

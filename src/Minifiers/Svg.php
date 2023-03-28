@@ -2,8 +2,6 @@
 
 namespace Mpietrucha\Minify\Minifiers;
 
-// use Mpietrucha\Minify\Contracts\MinifierInterface;
-
 class Svg extends Text
 {
     protected const OPENING = '<svg';
