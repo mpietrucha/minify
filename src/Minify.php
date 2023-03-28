@@ -67,6 +67,8 @@ class Minify
 
     public function lookup(string $lookup): self
     {
+        $lookup = str($lookup);
+
         $minifier = collect(self::MINIFIERS)
             ->map(fn (string $minifier) => new $minifier)
             ->first(fn (MinifierInterface $minifier) => $this->supported($minifier, $lookup));
@@ -85,13 +87,12 @@ class Minify
         return $this;
     }
 
-    public function supported(MinifierInterface $minifier, string $lookup): bool
+    public function supported(MinifierInterface $minifier, Stringable $lookup): bool
     {
         return collect(['mimeTypes', 'extensions'])
             ->map(fn (string $mode) => $minifier->$mode())
             ->flatten()
-            ->toStringable()
-            ->first(fn (Stringable $search) => $search->is($lookup)) !== null;
+            ->first(fn (string $search) => $lookup->is($search)) !== null;
     }
 
     protected function bootstrap(?MinifierInterface $minifier = null): void
