@@ -9,7 +9,7 @@ use Mpietrucha\Support\Types;
 use Mpietrucha\Minify\Contracts\MinifierInterface;
 use Mpietrucha\Minify\Minifiers\Text;
 use Mpietrucha\Minify\Minifiers;
-use Mpietrucha\Macros\Bootstrapper;
+use Mpietrucha\Support\Macro;
 use Illuminate\Support\Stringable;
 
 class Minify
@@ -30,7 +30,7 @@ class Minify
 
     public function __construct(protected ?string $contents = null, protected array $options = [])
     {
-        Bootstrapper::handle();
+        Macro::bootstrap();
 
         $this->minifier();
     }
