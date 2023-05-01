@@ -27,6 +27,6 @@ class Svg extends Text
                 ->first()
                 ->prepend($namespaceStart)
                 ->append($namespaceEnd)
-        )->prepend(self::OPENING)->filter()->toWords();
+        )->prepend(self::OPENING)->toWords();
     }
 }
