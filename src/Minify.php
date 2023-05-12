@@ -70,7 +70,7 @@ class Minify
         $lookup = str($lookup);
 
         $minifier = collect(self::MINIFIERS)
-            ->map(fn (string $minifier) => new $minifier)
+            ->mapToInstance()
             ->first(fn (MinifierInterface $minifier) => $this->supported($minifier, $lookup));
 
         return $this->minifier($minifier);
