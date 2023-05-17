@@ -7,8 +7,8 @@ use Mpietrucha\Support\Concerns\HasFactory;
 use Mpietrucha\Support\Concerns\HasInputFile;
 use Mpietrucha\Support\Types;
 use Mpietrucha\Minify\Contracts\MinifierInterface;
-use Mpietrucha\Minify\Minifiers\Text;
-use Mpietrucha\Minify\Minifiers;
+use Mpietrucha\Minify\Minifier\Text;
+use Mpietrucha\Minify\Minifier;
 use Mpietrucha\Support\Macro;
 use Illuminate\Support\Stringable;
 
@@ -23,9 +23,9 @@ class Minify
     protected ?MinifierInterface $minifier;
 
     protected const MINIFIERS = [
-        Minifiers\Js::class,
-        Minifiers\Css::class,
-        Minifiers\Svg::class
+        Minifier\Js::class,
+        Minifier\Css::class,
+        Minifier\Svg::class
     ];
 
     public function __construct(protected ?string $contents = null, protected array $options = [])

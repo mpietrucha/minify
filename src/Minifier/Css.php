@@ -1,12 +1,12 @@
 <?php
 
-namespace Mpietrucha\Minify\Minifiers;
+namespace Mpietrucha\Minify\Minifier;
 
 use Mpietrucha\Minify\Contracts\MinifierInterface;
-use MatthiasMullie\Minify\Js as Handler;
+use MatthiasMullie\Minify\CSS as Handler;
 use MatthiasMullie\Minify\Minify;
 
-class Js implements MinifierInterface
+class Css implements MinifierInterface
 {
     protected Minify $handler;
 
@@ -21,12 +21,12 @@ class Js implements MinifierInterface
 
     public function mimeTypes(): array
     {
-        return ['text/javascript'];
+        return ['text/css'];
     }
 
     public function extensions(): array
     {
-        return ['js'];
+        return ['css'];
     }
 
     public function minify(): string

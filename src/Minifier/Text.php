@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpietrucha\Minify\Minifiers;
+namespace Mpietrucha\Minify\Minifier;
 
 use voku\helper\HtmlMin;
 use Mpietrucha\Minify\Contracts\MinifierInterface;

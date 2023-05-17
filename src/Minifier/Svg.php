@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpietrucha\Minify\Minifiers;
+namespace Mpietrucha\Minify\Minifier;
 
 class Svg extends Text
 {
